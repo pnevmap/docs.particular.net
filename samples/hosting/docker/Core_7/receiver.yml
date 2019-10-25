@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: receiver-pod
+  labels:
+    version: v5
+spec:
+  containers:
+  - name: receiver
+    image: kbaley/receiver:latest
+    ports:
+    - containerPort: 8080

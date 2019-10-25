@@ -20,9 +20,9 @@ namespace Receiver
                 var endpointConfiguration = new EndpointConfiguration(EndpointName);
                 #region TransportConfiguration
 
-                var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-                transport.ConnectionString("host=rabbitmq");
-                transport.UseConventionalRoutingTopology();
+                var transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+                transport.ConnectionString(Environment.GetEnvironmentVariable("ASB_CONNECTION_STRING"));
+                endpointConfiguration.EnableInstallers();
 
                 #endregion
 

@@ -18,29 +18,28 @@ namespace Sender
             try
             {
                 var endpointConfiguration = new EndpointConfiguration(EndpointName);
-                var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-                transport.ConnectionString("host=rabbitmq");
-                transport.UseConventionalRoutingTopology();
+                var transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
+                transport.ConnectionString(Environment.GetEnvironmentVariable("ASB_CONNECTION_STRING"));
                 endpointConfiguration.EnableInstallers();
 
                 endpoint = await Endpoint.Start(endpointConfiguration);
 
                 Console.WriteLine("Sending a message...");
 
-                var guid = Guid.NewGuid();
-                Console.WriteLine($"Requesting to get data by id: {guid:N}");
+                while (true) {
+                    var guid = Guid.NewGuid();
+                    Console.WriteLine($"Requesting to get data by id: {guid:N}");
 
-                var message = new RequestMessage
-                {
-                    Id = guid,
-                    Data = "String property value"
-                };
+                    var message = new RequestMessage
+                    {
+                        Id = guid,
+                        Data = "String property value: " + guid.ToString()
+                    };
 
-                await endpoint.Send("Samples.Docker.Receiver", message)
-                    .ConfigureAwait(false);
-
-                Console.WriteLine("Message sent.");
-                Console.WriteLine("Use 'docker-compose down' to stop containers.");
+                    await endpoint.Send("Samples.Docker.Receiver", message)
+                        .ConfigureAwait(false);
+                    await Task.Delay(5000);
+                }
             }
             catch (Exception ex)
             {

@@ -1,0 +1,44 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: sender-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sender
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: sender-container
+        image: kbaley/sender:latest
+        env:
+        - name: ASB_CONNECTION_STRING
+          value: "<<ENTER ASB CONNECTION STRING>>"
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: receiver-deployment
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: receiver
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: receiver-container
+        image: kbaley/receiver:latest
+        env:
+        - name: ASB_CONNECTION_STRING
+          value: "<<ENTER ASB CONNECTION STRING>>"

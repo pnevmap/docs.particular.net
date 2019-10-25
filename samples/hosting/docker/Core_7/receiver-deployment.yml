@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: receiver-deploy
+spec:
+  replicas: 20
+  template:
+    metadata:
+      labels:
+        deployment: cli
+    spec:
+      containers:
+      - name: receiver-pod
+        image: kbaley/receiver:latest
+

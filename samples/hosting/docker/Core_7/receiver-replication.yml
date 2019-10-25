@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: receiver-rc
+spec:
+  replicas: 40
+  selector:
+    app: receiver
+  template:
+    metadata:
+      labels:
+        app: receiver
+        deployment: cli
+    spec:
+      containers:
+      - name: receiver-pod
+        image: kbaley/receiver:latest
+        ports:
+        - containerPort: 8080

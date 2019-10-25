@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sender-pod
+  labels:
+    version: v5
+spec:
+  containers:
+  - name: sender
+    image: kbaley/sender:latest
+    ports:
+    - containerPort: 8080

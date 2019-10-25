@@ -1,27 +1,18 @@
 version: "2.3"
 services:   
     sender:
-        image: sender
+        image: kbaley/sender
         build:
             context: .
             dockerfile: ./Sender/Dockerfile
-        depends_on:
-            rabbitmq:
-                condition: service_healthy
+        networks:
+            - new
     receiver:
-        image: receiver
+        image: kbaley/receiver
         build:
             context: .
             dockerfile: ./Receiver/Dockerfile
-        depends_on:
-            rabbitmq:
-                condition: service_healthy
-    rabbitmq:
-        image: "rabbitmq:3-management"
-        ports:
-            - "15672:15672"
-            - "5672:5672"
-        healthcheck:
-            test: ["CMD-SHELL", "if rabbitmqctl status; then \nexit 0 \nfi \nexit 1"]
-            interval: 10s
-            retries: 5
+        networks:
+            - new
+networks:
+    new:
