@@ -1,18 +1,12 @@
 version: "2.3"
-services:   
+services:
     sender:
-        image: kbaley/sender
+        image: adamralph/particular-asb-sender
         build:
             context: .
             dockerfile: ./Sender/Dockerfile
-        networks:
-            - new
     receiver:
-        image: kbaley/receiver
+        image: adamralph/particular-asb-receiver
         build:
             context: .
             dockerfile: ./Receiver/Dockerfile
-        networks:
-            - new
-networks:
-    new:

@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: sender-deployment
+  name: particular-asb-sender-deployment
 spec:
   replicas: 1
   template:
@@ -13,22 +13,22 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: sender-container
-        image: kbaley/sender:latest
+        image: adamralph/particular-asb-sender:latest
         env:
         - name: ASB_CONNECTION_STRING
-          value: "<<ENTER ASB CONNECTION STRING>>"
+          value: "Endpoint=sb://tf-185.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zYXqwRz0WLMc55ZlHwYFmXtaBXTLnOQiAbZbab0roFo="
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: receiver-deployment
+  name: particular-asb-receiver-deployment
 spec:
   replicas: 1
   strategy:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 1
-  minReadySeconds: 5 
+  minReadySeconds: 5
   template:
     metadata:
       labels:
@@ -38,7 +38,27 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: receiver-container
-        image: kbaley/receiver:latest
+        image: adamralph/particular-asb-receiver:latest
         env:
         - name: ASB_CONNECTION_STRING
-          value: "<<ENTER ASB CONNECTION STRING>>"
+          value: "Endpoint=sb://tf-185.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zYXqwRz0WLMc55ZlHwYFmXtaBXTLnOQiAbZbab0roFo="
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: particular-asb-service-control-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-control
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": windows
+      containers:
+      - name: service-control-container
+        image: adamralph/particular-asb-service-control
+        env:
+        - name: ServiceControl/ConnectionString
+          value: "Endpoint=sb://tf-185.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zYXqwRz0WLMc55ZlHwYFmXtaBXTLnOQiAbZbab0roFo="

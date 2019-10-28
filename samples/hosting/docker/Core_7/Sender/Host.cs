@@ -21,6 +21,7 @@ namespace Sender
                 var transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
                 transport.ConnectionString(Environment.GetEnvironmentVariable("ASB_CONNECTION_STRING"));
                 endpointConfiguration.EnableInstallers();
+                endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
 
                 endpoint = await Endpoint.Start(endpointConfiguration);
 

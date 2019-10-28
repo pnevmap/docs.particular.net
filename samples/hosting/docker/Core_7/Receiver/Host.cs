@@ -18,15 +18,10 @@ namespace Receiver
             try
             {
                 var endpointConfiguration = new EndpointConfiguration(EndpointName);
-                #region TransportConfiguration
-
                 var transport = endpointConfiguration.UseTransport<AzureServiceBusTransport>();
                 transport.ConnectionString(Environment.GetEnvironmentVariable("ASB_CONNECTION_STRING"));
                 endpointConfiguration.EnableInstallers();
-
-                #endregion
-
-                endpointConfiguration.EnableInstallers();
+                endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
 
                 endpoint = await Endpoint.Start(endpointConfiguration);
 
