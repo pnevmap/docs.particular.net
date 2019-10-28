@@ -16,7 +16,7 @@ spec:
         image: adamralph/particular-asb-sender:latest
         env:
         - name: ASB_CONNECTION_STRING
-          value: "Endpoint=sb://tf-185.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zYXqwRz0WLMc55ZlHwYFmXtaBXTLnOQiAbZbab0roFo="
+          value: "<<ENTER ASB CONNECTION STRING>>"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -41,7 +41,7 @@ spec:
         image: adamralph/particular-asb-receiver:latest
         env:
         - name: ASB_CONNECTION_STRING
-          value: "Endpoint=sb://tf-185.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zYXqwRz0WLMc55ZlHwYFmXtaBXTLnOQiAbZbab0roFo="
+          value: "<<ENTER ASB CONNECTION STRING>>"
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -61,4 +61,4 @@ spec:
         image: adamralph/particular-asb-service-control
         env:
         - name: ServiceControl_ConnectionString
-          value: "Endpoint=sb://tf-185.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zYXqwRz0WLMc55ZlHwYFmXtaBXTLnOQiAbZbab0roFo="
+          value: "<<ENTER ASB CONNECTION STRING>>"
