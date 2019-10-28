@@ -60,5 +60,5 @@ spec:
       - name: service-control-container
         image: adamralph/particular-asb-service-control
         env:
-        - name: ServiceControl/ConnectionString
+        - name: ServiceControl_ConnectionString
           value: "Endpoint=sb://tf-185.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zYXqwRz0WLMc55ZlHwYFmXtaBXTLnOQiAbZbab0roFo="
