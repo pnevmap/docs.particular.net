@@ -22,6 +22,8 @@ namespace Receiver
                 transport.ConnectionString(Environment.GetEnvironmentVariable("ASB_CONNECTION_STRING"));
                 endpointConfiguration.EnableInstallers();
                 endpointConfiguration.SendHeartbeatTo("Particular.ServiceControl");
+                endpointConfiguration.AuditProcessedMessagesTo("audit");
+                endpointConfiguration.SendFailedMessagesTo("error");
 
                 endpoint = await Endpoint.Start(endpointConfiguration);
 

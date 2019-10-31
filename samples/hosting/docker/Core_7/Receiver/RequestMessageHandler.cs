@@ -9,7 +9,7 @@ public class RequestMessageHandler
 
     public Task Handle(RequestMessage message, IMessageHandlerContext context)
     {
-        log.Info($"Request received with description: {message.Data}");
+        log.Info($"(1.0.0) Request received with description: {message.Data}");
 
         var response = new ResponseMessage
         {
