@@ -36,7 +36,7 @@ namespace Sender
                     var message = new RequestMessage
                     {
                         Id = guid,
-                        Data = "String property value: " + guid.ToString()
+                        Data = "String property value: " + guid.ToString() + (new Random().Next(3) == 0 ? " ERROR" : ""),
                     };
 
                     await endpoint.Send("Samples.Docker.Receiver", message)

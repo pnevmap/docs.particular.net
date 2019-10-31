@@ -9,7 +9,12 @@ public class RequestMessageHandler
 
     public Task Handle(RequestMessage message, IMessageHandlerContext context)
     {
-        log.Info($"(1.0.0) Request received with description: {message.Data}");
+        log.Info($"(1.1.0) Request received with description: {message.Data}");
+
+        if (message.Data.Contains("ERROR"))
+        {
+            throw new System.Exception("Something random failed!");
+        }
 
         var response = new ResponseMessage
         {
