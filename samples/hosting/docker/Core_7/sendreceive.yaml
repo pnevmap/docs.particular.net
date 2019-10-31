@@ -79,3 +79,37 @@ spec:
     port: 33333
   selector:
     app: service-control
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: particular-service-pulse-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-pulse
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": windows
+      containers:
+      - name: service-pulse-container
+        image: particular/servicepulse
+        ports:
+          - containerPort: 80
+  selector:
+    matchLabels:
+      app: service-pulse
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-pulse-service
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+  selector:
+    app: service-pulse
