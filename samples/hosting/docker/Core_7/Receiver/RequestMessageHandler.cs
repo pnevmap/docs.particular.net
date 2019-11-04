@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using NServiceBus;
 using NServiceBus.Logging;
@@ -9,7 +10,13 @@ public class RequestMessageHandler
 
     public Task Handle(RequestMessage message, IMessageHandlerContext context)
     {
-        log.Info($"(1.1.1) Request received with description: {message.Data}");
+        log.Info($"(1.2.0) Request received with description: {message.Data}");
+
+        if (new Random().Next(3) == 0)
+        {
+            log.Fatal("Endpoint is crashing!");
+            Environment.Exit(1);
+        }
 
         var response = new ResponseMessage
         {
