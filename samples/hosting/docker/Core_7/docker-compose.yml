@@ -1,12 +1,12 @@
 version: "2.3"
 services:
     sender:
-        image: adamralph/particular-asb-sender:1.2.0
+        image: adamralph/particular-asb-sender:1.2.1
         build:
             context: .
             dockerfile: ./Sender/Dockerfile
     receiver:
-        image: adamralph/particular-asb-receiver:1.2.0
+        image: adamralph/particular-asb-receiver:1.2.1
         build:
             context: .
             dockerfile: ./Receiver/Dockerfile

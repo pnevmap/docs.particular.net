@@ -13,7 +13,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: sender-container
-        image: adamralph/particular-asb-sender:1.2.0
+        image: adamralph/particular-asb-sender:1.2.1
         env:
         - name: ASB_CONNECTION_STRING
           value: "<<ENTER ASB CONNECTION STRING>>"
@@ -33,7 +33,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: receiver-container
-        image: adamralph/particular-asb-receiver:1.2.0
+        image: adamralph/particular-asb-receiver:1.2.1
         env:
         - name: ASB_CONNECTION_STRING
           value: "<<ENTER ASB CONNECTION STRING>>"
